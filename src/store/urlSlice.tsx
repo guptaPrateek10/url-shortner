@@ -1,6 +1,11 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-
-const initialState = {
+//import the required types
+export type Url = {
+  id: string;
+  longUrl: string;
+  shortUrl: string;
+};
+const initialState: { urls: Url[] } = {
   urls: [],
 };
 
@@ -17,6 +22,10 @@ const urlSlice = createSlice({
         longUrl,
         shortUrl: `https://shorturl.com/${generateShortUrl()}`,
       });
+    },
+    removeUrl: (state, action) => {
+      const { id } = action.payload;
+      state.urls = state.urls.filter((url) => url.id !== id);
     },
   },
 });
